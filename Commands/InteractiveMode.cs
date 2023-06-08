@@ -34,7 +34,9 @@ public class InteractiveMode
             return;
         }
         finally {
-            Console.WriteLine(rules);
+            var norecur = FixGrammar.RemoveLeftRecursion(rules);
+            AnsiConsole.Markup($"[green] Left Recursion Removed Grammar[/]\n");
+            AnsiConsole.Write(norecur.ToString());
         }
         
     }
