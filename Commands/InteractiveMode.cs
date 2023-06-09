@@ -14,19 +14,21 @@ public class InteractiveMode
         AnsiConsole.Markup("Type your grammar here (press [green]Enter[/] in a new line to finish):\n");
         AnsiConsole.Markup("[orange3]Note:[/] [green]Special Characters[/]: Episilon = [green]ε[/]\n");
         List<string> lines = new();
-        do {
+        do
+        {
             var line = AnsiConsole.Prompt(
                 new TextPrompt<string>("[cyan]> [/]")
                     .AllowEmpty()
             );
-            if (line is null  || line == "")
+            if (line is null || line == "")
             {
                 break;
             }
             lines.Add(line);
         } while (true);
         ProductionRule rules = new();
-        try {
+        try
+        {
             rules = SeparateElements.SeparateNonTerminals(lines);
         }
         catch (Exception e)
@@ -34,30 +36,28 @@ public class InteractiveMode
             AnsiConsole.Markup($"[red]{e.Message}[/]\n");
             return;
         }
-        finally {
-            var norecur = FixGrammar.RemoveLeftRecursion(rules);
-            AnsiConsole.Markup("\n[green]Left Recursion Removed Grammar[/]\n");
-            AnsiConsole.WriteLine(norecur.ToString());
 
-            //var nofact = FixGrammar.LeftFactoring(rules);
-            //AnsiConsole.Markup("\n[green] Left Factored Grammar[/]\n");
-            //AnsiConsole.WriteLine(nofact.ToString());
+        var norecur = FixGrammar.RemoveLeftRecursion(rules);
+        AnsiConsole.Markup("\n[green]Left Recursion Removed Grammar[/]\n");
+        AnsiConsole.WriteLine(norecur.ToString());
 
-            var first = FirstCalc.getFirst(norecur);
-            AnsiConsole.Markup("\n[green]Firsts Sets[/]\n");
-            foreach (var item in first)
-            {
-                AnsiConsole.WriteLine($"{item.Key} = {string.Join(", ", item.Value)}");
-            }
+        //var nofact = FixGrammar.LeftFactoring(rules);
+        //AnsiConsole.Markup("\n[green] Left Factored Grammar[/]\n");
+        //AnsiConsole.WriteLine(nofact.ToString());
 
-            var next = NextCalc.getNext(norecur, first);
-            AnsiConsole.Markup("\n[green]Follow Sets[/]\n");
-            foreach (var item in next)
-            {
-                AnsiConsole.WriteLine($"{item.Key} = {string.Join(", ", item.Value)}");
-            }
-
+        var first = FirstCalc.getFirst(norecur);
+        AnsiConsole.Markup("\n[green]Firsts Sets[/]\n");
+        foreach (var item in first)
+        {
+            AnsiConsole.WriteLine($"{item.Key} = {string.Join(", ", item.Value)}");
         }
-        
+
+        var next = NextCalc.getNext(norecur, first);
+        AnsiConsole.Markup("\n[green]Follow Sets[/]\n");
+        foreach (var item in next)
+        {
+            AnsiConsole.WriteLine($"{item.Key} = {string.Join(", ", item.Value)}");
+        }
+
     }
 }
