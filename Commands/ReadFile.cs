@@ -30,9 +30,9 @@ public class ReadFile
         AnsiConsole.Markup("\n[green]Left Recursion Removed Grammar[/]\n");
         AnsiConsole.WriteLine(norecur.ToString());
 
-        //var nofact = FixGrammar.LeftFactoring(rules);
-        //AnsiConsole.Markup("\n[green] Left Factored Grammar[/]\n");
-        //AnsiConsole.WriteLine(nofact.ToString());
+        var nofact = FixGrammar.LeftFactoring(norecur);
+        AnsiConsole.Markup("\n[green]Left Factored Grammar[/]\n");
+        AnsiConsole.WriteLine(nofact.ToString());
 
         var first = FirstCalc.getFirst(norecur);
         AnsiConsole.Markup("\n[green]Firsts Sets[/]\n");
