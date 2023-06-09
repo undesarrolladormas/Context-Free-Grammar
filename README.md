@@ -1,5 +1,10 @@
 # Grammar
-Los ejecutables se encuentran en la carpeta `bin\Debug\net7.0`, para ejecutarlos se debe hacer lo siguiente:
+
+## Descripcion
+Un programa que recibe una gramatica libre de contexto y
+1. Determina y elimina la recursividad a la izquierda
+2. Realiz factorizacion a la izquierda, si es posible
+
 ```
 cd bin\Debug\net7.0
 .\Grammar.exe <ruta-al-archivo>
