@@ -45,14 +45,14 @@ public class InteractiveMode
         AnsiConsole.Markup("\n[green] Left Factored Grammar[/]\n");
         AnsiConsole.WriteLine(nofact.ToString());
 
-        var first = FirstCalc.getFirst(norecur);
+        var first = FirstCalc.getFirst(nofact);
         AnsiConsole.Markup("\n[green]Firsts Sets[/]\n");
         foreach (var item in first)
         {
             AnsiConsole.WriteLine($"{item.Key} = {string.Join(", ", item.Value)}");
         }
 
-        var next = NextCalc.getNext(norecur, first);
+        var next = NextCalc.getNext(nofact, first);
         AnsiConsole.Markup("\n[green]Follow Sets[/]\n");
         foreach (var item in next)
         {
